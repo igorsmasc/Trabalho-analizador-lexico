@@ -1,7 +1,14 @@
-const Token = require("./token.model");
+class Token {
+    constructor(lexema, tipo, valor){
+        this.lexema = lexema;
+        this.tipo = tipo;
+        this.valor = valor;
+    }
+
+}
 
 function analisadorLexico(x) {
-
+    
     myOperators = ['+', '-', '*', '**', '/'];
     myPointers = [')', '('];
     myNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -29,11 +36,12 @@ function analisadorLexico(x) {
         }
 
     })
-
+    debugger;
     for (let i = 0; i < myArray.length; i++) {
         if (i + 2 <= myArray.length) {
             while ((!myOperators.includes(myArray[i]) && !myPointers.includes(myArray[i]))
-                && (!myOperators.includes(myArray[i + 1]) && !myPointers.includes(myArray[i + 1]))) {
+                && (!myOperators.includes(myArray[i + 1]) && !myPointers.includes(myArray[i + 1]) 
+                && myArray[i+1])) {
                 let aux = myArray[i + 1];
                 myArray.splice(i + 1, 1);
                 myArray[i] = myArray[i] + '' + aux;
@@ -51,15 +59,7 @@ function analisadorLexico(x) {
         }
     }
 
-    for (let i = 0; i < myArray.length; i++) {
-        if (i + 2 <= myArray.length) {
-            while (((myArray[i] == '(' || myArray[i] == ')' ))
-                && (myArray[i + 1] == '-') && myNumbers.includes(myNumbers[i+2]) ) {
-                    myArray[i+2] = '-'+myArray[i+2];
-                    myArray.splice(i + 1, 1);
-            }
-        }
-    }
+
 
     myArray = myArray.join(' ');
 
@@ -144,5 +144,5 @@ function analisadorLexico(x) {
 
 
 
-analisadorLexico('12+  -(-4)');
+analisadorLexico('1+2/b');
 
