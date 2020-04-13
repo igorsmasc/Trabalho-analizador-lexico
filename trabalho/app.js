@@ -15,18 +15,6 @@ function analisadorLexico(x) {
 
     myArray = x.replace(/\s/g, '').split('').join(' ');
     myArray = myArray.replace(' * * ', ' ** ');
-
-    ajustArray = myArray.split(' ');
-    ajustArray.push('x');
-
-    ajustmentIndexs = [];
-
-    for (let i = 0; i < ajustArray.length - 1; i++) {
-        if (ajustArray[i].match("-?([0-9]\\d*)") && ajustArray[i + 1].match("-?([0-9]\\d*)")) {
-            ajustmentIndexs.push(i);
-        }
-    }
-
     myArray = myArray.split(' ');
 
     myArray.forEach(element => {
@@ -36,7 +24,7 @@ function analisadorLexico(x) {
         }
 
     })
-    debugger;
+
     for (let i = 0; i < myArray.length; i++) {
         if (i + 2 <= myArray.length) {
             while ((!myOperators.includes(myArray[i]) && !myPointers.includes(myArray[i]))
@@ -144,5 +132,15 @@ function analisadorLexico(x) {
 
 
 
-analisadorLexico('1+2/b');
+analisadorLexico('-(8+12)**1*4/-4--3');
 
+
+
+/* - Alguns exemplos:
+---> +1*2
+---> +5**2-(4)
+---> -5--7
+---> -(8+12)**1*3/-4
+---> a2+(3-5)
+---> 1+2/b
+*/
